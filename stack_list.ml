@@ -1,4 +1,4 @@
-module Stack =
+module StackList =
   struct
     open Format
 
@@ -13,12 +13,16 @@ module Stack =
       | 0, _ -> true
       | _       -> false
 
-    let push t = function
+    let cons t = function
       | n, l -> n+1, t::l
 
-    let pop = function
+    let head = function
       | _, []   -> raise Empty
-      | n, x::l -> n, l
+      | _, x::l -> x
+
+    let tail = function
+      | _, []   -> raise Empty
+      | n, x::l -> n-1, l
 
     let length = function
       | n, _ -> n
@@ -35,16 +39,16 @@ module Stack =
   end
 
 let () =
-  let q = ref Stack.empty in
+  let q = ref StackList.empty in
 
-  assert (Stack.is_empty !q);
+  assert (StackList.is_empty !q);
 
-  q := Stack.push 3 !q;
-  q := Stack.push 2 !q;
-  q := Stack.push 1 !q;
-  q := Stack.push 0 !q;
-  q := Stack.pop !q;
+  q := StackList.cons 3 !q;
+  q := StackList.cons 2 !q;
+  q := StackList.cons 1 !q;
+  q := StackList.cons 0 !q;
+  q := StackList.tail !q;
 
-  assert (not @@ Stack.is_empty !q);
+  assert (not @@ StackList.is_empty !q);
 
-  Stack.pprint !q
+  StackList.pprint !q
