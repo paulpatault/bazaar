@@ -49,7 +49,7 @@ let () =
 
   assert (Queue.is_empty q);
 
-  Queue.push 10 q;
+  Queue.push 10. q;
   Queue.push 3 q;
   Queue.push 2 q;
   Queue.push 1 q;
